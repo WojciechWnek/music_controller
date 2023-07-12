@@ -41,3 +41,55 @@ urlpatterns = [
     path("", main)
 ]
 ```
+
+## rest_framework
+
+create model of a database table
+```
+class Room(models.Model):
+    code = models.CharField(max_length=8, default="", unique=True)
+    host = models.CharField(max_length=50, unique=True)
+    guest_can_pause = models.BooleanField(null=False, default=False)
+    votes_to_skip = models.IntegerField(null=False, default=2)
+    created_at = models.DateTimeField(auto_now_add=True)
+```
+
+**serialize** model using **rest_framework**
+```
+from rest_framework import serializers
+from .models import Room
+
+class RoomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Room
+        fields = ('id', "code", "host", "guest_can_pause",
+                  "votes_to_skip", 'created_at')
+    
+```
+where:
+- **fields** will be json keys
+<br/>
+<br/>
+
+create **class view** using rest_framework, 
+
+to do this, utilize **serializer** from above
+```
+from rest_framework import generics
+from .models import Room
+from .serializers import RoomSerializer
+
+class RoomView(generics.ListAPIView):
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
+```
+
+
+update urls utlizing **class view**
+```
+from .views import RoomView
+
+urlpatterns = [
+    path("room", RoomView.as_view())
+]
+```
