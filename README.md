@@ -2,11 +2,22 @@
 
 ## environment
 
- `pip freeze` - will display requirements
+`python -m venv music-env` - will create virtual environment
 
- `pip freeze > requirements.txt` - will save output to file
+On Windows, run:\
+`music-env\Scripts\activate.bat` - will run virtual environment\
+`music-env\Scripts\activate.ps1` - with powershell
 
- `pip install -r requirements.txt` - will read from file and install dependencies
+On Unix or MacOS, run:\
+`source music-env/bin/activate` - will run virtual environment
+
+`deactivate` - will stop virtual environment
+
+`pip freeze` - will display requirements
+
+`pip freeze > requirements.txt` - will save output to file
+
+`pip install -r requirements.txt` - will read from file and install dependencies
   
 ## urls
 
@@ -68,9 +79,8 @@ class RoomSerializer(serializers.ModelSerializer):
 ```
 where:
 - **fields** will be json keys
-<br/>
-<br/>
-
+\
+\
 create **class view** using rest_framework, 
 
 to do this, utilize **serializer** from above
